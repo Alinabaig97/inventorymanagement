@@ -61,46 +61,15 @@
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a> --}}
-                        <a class="nav-link" href="{{ route('categories.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
-                            Category
-                        </a>
-                        <a class="nav-link" href="{{ route('product.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
-                            Products
-                        </a>
-                        <a class="nav-link" href="{{ route('orders_details.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                            Orders Details
-                        </a>
-                        <a class="nav-link" href="{{ route('customer.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
-                            Customers
-                        </a>
-                        <a class="nav-link" href="{{ route('dailySales.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                            Daily Sales
-                        </a>
-                        <a class="nav-link" href="{{ route('bills.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-                            Bills
-                        </a>
-                        <a class="nav-link" href="{{ route('transactionCategory.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
-                            Transation Category
-                        </a>
-                        <a class="nav-link" href="{{ route('transactions.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
-                            Transations
-                        </a>
-                        <a class="nav-link" href="{{ route('reports.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
-                            Reports
-                        </a>
-                        <a class="nav-link" href="{{ route('user.index')}}" >
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
-                            Users
-                        </a>
+                            <a class="nav-link" href="{{route('quotation.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                                Quotation
+                            </a>
+                            <a class="nav-link" href="{{route('quotationproducts.index')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
+                                Quotation Products
+                            </a>
+                            
                         
             </nav>
         </div>

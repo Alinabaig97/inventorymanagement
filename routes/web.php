@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderDetailsController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -16,9 +17,17 @@ use App\Http\Controllers\Admin\TransactionsController;
 use App\Http\Controllers\Admin\BillsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
-
+use App\Http\Controllers\Admin\UserController;
 use App\Models\OrderDetail;
 use App\Models\Transations;
+/*
+------------ Users Controller Start--------------
+*/
+
+use App\Http\Controllers\User\QuotationController;
+use App\Http\Controllers\User\QuotationProductsController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -56,23 +65,24 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/get/products', [OrderDetailsController::class, 'getproduct'])->name('get.products');
     Route::get('/get/name', [CustomerController::class, 'getproduct'])->name('get.amount');
     Route::post('/update-status/{id}', [OrderDetailsController::class, 'updateStatus'])->name('update.status');
-    Route::post('updateQuantity', [OrderDetailsController::class,'updateQuantity'])->name('update.quantity');
+    Route::post('updateQuantity', [OrderDetailsController::class, 'updateQuantity'])->name('update.quantity');
     Route::resource('customer', CustomerController::class);
-    Route::get('/viewData/{id}',[CustomerController::class,'view'])->name('view');
+    Route::get('/viewData/{id}', [CustomerController::class, 'view'])->name('view');
     Route::resource('dailySales', DailySalesController::class);
-    Route::get('/filter',[DailySalesController::class,'filter'])->name('dailySales.filter');
+    Route::get('/filter', [DailySalesController::class, 'filter'])->name('dailySales.filter');
     Route::resource('bills', BillsController::class);
-    Route::get('/getbills', [BillsController::class,'filter'])->name('GetBills.filter');
+    Route::get('/getbills', [BillsController::class, 'filter'])->name('GetBills.filter');
     Route::resource('transactionCategory', TransactionCategoryController::class);
     Route::resource('transactions', TransactionsController::class);
     Route::resource('reports', ReportController::class);
-    Route::get('/filter',[ReportController::class,'filter'])->name('reports.filter');
+    Route::get('/filter', [ReportController::class, 'filter'])->name('reports.filter');
+    Route::resource('user', UserController::class);
+});
 
-
-
-
-
-
-
-
+Route::group(['middleware' => ['auth', 'isUser']], function () {
+    Route::get('/dashboard', [AdminUserController::class, 'dashboard'])->name('dashboard');
+    Route::resource('quotation',QuotationController::class);
+    Route::resource('quotationproducts',QuotationProductsController::class);
+    Route::get('search',[QuotationController::class,'search'])->name('quotation.search');
+    
 });
