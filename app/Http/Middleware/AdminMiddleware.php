@@ -20,6 +20,7 @@ class AdminMiddleware
             if(Auth::user()->role_as == 1)
             {
                 return $next($request);
+                return redirect('/admindashboard');
             }
             else
             {
@@ -28,7 +29,7 @@ class AdminMiddleware
         }
         else
         {
-            return redirect('/dashboard')->with('status','Please Login First');
+            return redirect('/admindashboard')->with('status','Please Login First');
         }
     }
 }

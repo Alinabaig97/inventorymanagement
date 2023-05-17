@@ -101,6 +101,10 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                             Users
                         </a>
+                        <a class="nav-link" href="{{route('quotation.index')}}" >
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
+                            Quotation Products
+                        </a>
                         
             </nav>
         </div>

@@ -21,14 +21,16 @@ class UserMiddleware
             {
                 return $next($request);
             }
-            // else
-            // {
-            //     return redirect('/home')->with('status','Access Denied! as you are not as admin');
-            // }
+            else
+            {
+            // return 1;
+
+                return redirect('/userdashboard')->with('status','Access Denied! as you are not as admin');
+            }
         }
         else
         {
-            return redirect('/dashboard')->with('status','Please Login First');
+            return redirect('/userdashboard')->with('status','Please Login First');
         }
     }
 }

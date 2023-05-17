@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">Total Price</label>
-                            <input type="text" name="total_price" class="form-control" id="">
+                            <input type="text" name="total_price" class="form-control" value="" id="total-price-input">
                         </div>
                     </div>
                     <div class="col-md-3 mt-3">
@@ -66,11 +66,11 @@
                                 <div class="col-md-12">
                                     <div class="card">
                                         <ul class="list-group list-group-flush p-3">
-                                            <li class="list-group-item">Order Tax: <span id="order">7%</span></li>
-                                            <li class="list-group-item">Discount: <span id="discount">2%</span> </li>
-                                            <li class="list-group-item">Shipping: <span id="shipping">10</span></li>
+                                            <li class="list-group-item">Order Tax: <span id="order-value">%</span></li>
+                                            <li class="list-group-item">Discount: <span id="discount-value"></span> </li>
+                                            <li class="list-group-item">Shipping: <span id="shipping-value"></span></li>
                                             <li class="list-group-item text text-success">Grant Total: Rs.<span
-                                                    id="total">500</span></li>
+                                                    id="total"></span></li>
 
                                         </ul>
                                     </div>
@@ -133,17 +133,16 @@
                     // clear the previous search results
 
                     $('tbody').html('');
-
                     if (response.length > 0) {
 
                         $.each(response, function(index, product) {
                             // append each product to the search results container
-                            console.log(product.name);
+                            console.log(product);
 
                             var html = '' +
                                 '<tr>' +
                                 '    <td>' + index + 1 + '</td>' +
-                                '<td><input type="hidden" name="product_id" value="' +
+                                '<td><input type="hidden" name="product_id[]" value="' +
                                 product.id + '"></td>' +
                                 '    <td>' + product.name + '</td>' +
                                 '    <td>' +
@@ -152,11 +151,12 @@
                                 '        <div class="input-group">' +
                                 '            <span class="input-group-btn">' +
                                 '                <button type="button" class="quantity-left-minus btn btn-danger btn-number" data-id="' +
-                                product.id + '"  data-type="minus" data-field="">' +
+                                product.id +
+                                '"  data-type="minus" data-field="" >' +
                                 '                    - ' +
                                 '                </button>' +
                                 '            </span>' +
-                                '            <input type="text" id="quantity"  name="quantity" class="form-control input-number plus' +
+                                '            <input type="text" id="quantity"  name="quantity[]" class="form-control input-number plus' +
                                 product.id + '" value="1" min="1" max="100">' +
                                 '            <span class="input-group-btn">' +
                                 '                <button type="button" class="quantity-right-plus btn btn-success btn-number" data-id="' +
@@ -168,8 +168,8 @@
                                 '        </div>' +
                                 '        </div>' +
                                 '    </td>' +
-                                '    <td class="product-price' + product.id +
-                                '" data-price="' + product.price + '">' +
+                                '    <td  name="product_price[]"  class="price product-price' + product.id +
+                                '" data-price="' + product.price + ' ">' +
                                 product.price +
                                 '</td>' +
                                 '</tr>'
@@ -183,19 +183,29 @@
 
                             }, 250);
 
-
-
                         });
+
+
                     } else {
                         // if no products are found, show a message
-                        // $('.serach-result').html(
-                        //     '<div class="no-results">No products found</div>');
-
-
                         $('tbody').html('<div class="no-results">No products found</div>');
 
                     }
                 }
+            });
+
+            $.ajax({
+                url: "{{ route('quotation.sum') }}",
+                type: 'GET',
+                data: {
+                    'search': value
+                },
+                success: function(htmlresponse) {
+                    var total = parseFloat(htmlresponse.total).toFixed(2);
+                    $('#total').text(total);
+                    $('#total').attr('data-price', total);
+
+                },
             });
         });
     });
@@ -215,8 +225,12 @@
             var priceCell = $('.product-price' + id).attr('data-price');
             var price = parseFloat(priceCell);
             var total = increament * price;
+            var quantity1 = parseFloat($('#total').text());
+            $('#total').text(quantity1 + price);
+            $('#total-price-input').val(quantity1+price);
             $('.product-price' + id).text(total);
             $('.plus' + id).val(quantity + 1);
+
 
         });
         $(document).on('click', '.quantity-left-minus', function(e) {
@@ -231,50 +245,57 @@
             var priceCell = $('.product-price' + id).attr('data-price');
             var price = parseFloat(priceCell);
             if (decreament < 0) {
-                decreament = 0;
+                $('.plus' + id).val(0);
+                $('.product-price' + id).text(0);
             }
             var total = decreament * price;
+            var quantity1 = parseFloat($('#total').text());
+            $('#total').text(quantity1 - price);
             $('.product-price' + id).text(total.toFixed(2));
             $('.product-price' + id).text(total)
             $('.plus' + id).val(parseInt(quantity) - 1);
+
         });
 
     });
 
-    // Get the initial values of the inputs and update the total
-    var orderTax = parseFloat($('#order').text().replace('%', '')) / 100;
-    var discount = parseFloat($('#discount').text().replace('%', '')) / 100;
-    var shipping = parseFloat($('#shipping').text());
-    updateTotal(orderTax, discount, shipping);
+    $(document).ready(function() {
+        // Update order tax
+        $('#order').on('keyup', function() {
+            var orderTax = $(this).val();
+            $('#order-value').text(orderTax);
+            var subtotal = $("#total").attr('data-price');
+            var orderTax = parseFloat($('#order').val());
+            var discount = parseFloat($('#discount').val()) || 0;
+            var shipping = parseFloat($('#shipping').val()) || 0;
+            var taxAmount = subtotal * (orderTax / 100);
+            var total = (Number(subtotal) + Number(shipping)) - discount - taxAmount;
+            $('#total').text(total.toFixed(2));
+        });
 
-    // Add event listeners to the input fields
-    $('#order').on('input', function() {
-        var orderTax = parseFloat($(this).val()) / 100;
-        var discount = parseFloat($('#discount').text().replace('%', '')) / 100;
-        var shipping = parseFloat($('#shipping').text());
-        updateTotal(orderTax, discount, shipping);
+        $('#discount').on('keyup', function() {
+            var discount = $(this).val();
+            $('#discount-value').text(discount);
+            var subtotal = $("#total").attr('data-price');
+            var orderTax = parseFloat($('#order').val()) || 0;
+            var discount = parseFloat($('#discount').val());
+            var shipping = parseFloat($('#shipping').val()) || 0;
+            var taxAmount = subtotal * (orderTax / 100);
+            var total = (Number(subtotal) + Number(shipping)) - discount - taxAmount;
+            $('#total').text(total.toFixed(2));
+
+        });
+
+        $('#shipping').on('keyup', function() {
+            var shipping = $(this).val();
+            $('#shipping-value').text(shipping);
+            var subtotal = $("#total").attr('data-price');
+            var orderTax = parseInt($('#order').val()) || 0;
+            var discount = parseInt($('#discount').val()) || 0;
+            var taxAmount = subtotal * (orderTax / 100);
+            var total = (Number(subtotal) + Number(shipping)) - discount - taxAmount;
+            $('#total').text(total);
+
+        });
     });
-
-    $('#discount').on('input', function() {
-        var orderTax = parseFloat($('#order_tax').text().replace('%', '')) / 100;
-        var discount = parseFloat($(this).val()) / 100;
-        var shipping = parseFloat($('#shipping').text());
-        updateTotal(orderTax, discount, shipping);
-    });
-
-    $('#shipping').on('input', function() {
-        var orderTax = parseFloat($('#order_tax').text().replace('%', '')) / 100;
-        var discount = parseFloat($('#discount').text().replace('%', '')) / 100;
-        var shipping = parseFloat($(this).val());
-        updateTotal(orderTax, discount, shipping);
-    });
-
-    // Function to update the total
-    function updateTotal(orderTax, discount, shipping) {
-        var subTotal = parseFloat($('#sub_total').text());
-        var tax = subTotal * orderTax;
-        var discountAmount = subTotal * discount;
-        var total = subTotal + tax + shipping - discountAmount;
-        $('#total').text(total.toFixed(2));
-    }
 </script>

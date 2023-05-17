@@ -18,6 +18,9 @@ use App\Http\Controllers\Admin\BillsController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\AdminQuotationProductsController;
+
+
 use App\Models\OrderDetail;
 use App\Models\Transations;
 /*
@@ -57,7 +60,7 @@ Auth::routes();
 Route::get('/home', [AdminController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 
-    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    Route::get('/admindashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('categories', CategoryController::class);
     Route::resource('product', ProductController::class);
@@ -77,12 +80,16 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::resource('reports', ReportController::class);
     Route::get('/filter', [ReportController::class, 'filter'])->name('reports.filter');
     Route::resource('user', UserController::class);
+    Route::get('quotation1',[AdminQuotationProductsController::class,'index'])->name('quotation.index');
+
 });
 
-Route::group(['middleware' => ['auth', 'isUser']], function () {
-    Route::get('/dashboard', [AdminUserController::class, 'dashboard'])->name('dashboard');
-    Route::resource('quotation',QuotationController::class);
-    Route::resource('quotationproducts',QuotationProductsController::class);
-    Route::get('search',[QuotationController::class,'search'])->name('quotation.search');
+// Route::group(['middleware' => ['auth', 'isUser']], function () {
+//     Route::get('/userdashboard', [AdminUserController::class, 'dashboard'])->name('dashboard');
+//     Route::resource('quotation',QuotationController::class);
+//     Route::resource('quotationproducts',QuotationProductsController::class);
+//     Route::get('search',[QuotationController::class,'search'])->name('quotation.search');
+//     Route::get('/products/sum', [QuotationController::class,'sum'])->name('quotation.sum');
+
     
-});
+// });
