@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="">Total Price</label>
-                            <input type="text" name="total_price" class="form-control" value="" id="total-price-input">
+                            <input type="text" readonly name="total_price" class="form-control" value="" id="total-price-input">
                         </div>
                     </div>
                     <div class="col-md-3 mt-3">
@@ -137,7 +137,6 @@
 
                         $.each(response, function(index, product) {
                             // append each product to the search results container
-                            console.log(product);
 
                             var html = '' +
                                 '<tr>' +
@@ -168,7 +167,9 @@
                                 '        </div>' +
                                 '        </div>' +
                                 '    </td>' +
-                                '    <td  name="product_price[]"  class="price product-price' + product.id +
+                                '<td><input type="hidden" name="product_price[]" value="' +
+                                product.price+ '"></td>' +
+                                '    <td  class="price product-price' + product.id +
                                 '" data-price="' + product.price + ' ">' +
                                 product.price +
                                 '</td>' +
@@ -251,6 +252,7 @@
             var total = decreament * price;
             var quantity1 = parseFloat($('#total').text());
             $('#total').text(quantity1 - price);
+            $('#total-price-input').val(quantity1-price);
             $('.product-price' + id).text(total.toFixed(2));
             $('.product-price' + id).text(total)
             $('.plus' + id).val(parseInt(quantity) - 1);

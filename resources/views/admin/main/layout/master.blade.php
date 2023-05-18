@@ -101,9 +101,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                             Users
                         </a>
-                        <a class="nav-link" href="{{route('quotation.index')}}" >
+                        <a class="nav-link" href="{{route('quotations.index')}}" >
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
                             Quotation Products
+                        </a>
+                        <a class="nav-link" href="{{route('paymentsystem.index')}}" >
+                            <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                           Payment
                         </a>
                         
             </nav>

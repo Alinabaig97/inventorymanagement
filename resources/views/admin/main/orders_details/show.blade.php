@@ -16,7 +16,7 @@
             <p> <h6> Status:</h6></p>
             <form action="{{route('update.status',$details->id)}}" method="post">
                 @csrf
-            <select id="status" name="status" >
+            <select id="status" name="status" class="form-control" style="width: 30%" >
               <option value="1" {{ $details->status == 1 ? 'selected' : '' }}>Active</option>
               <option value="0" {{ $details->status == 0 ? 'selected' : '' }}>Inactive</option>
             </select><br><br>

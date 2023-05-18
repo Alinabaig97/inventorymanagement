@@ -10,6 +10,7 @@ use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Quotation;
 use App\Models\Quotation_products;
+use App\Models\Paynow;
 use Illuminate\Support\Facades\DB;
 
 class QuotationController extends Controller
@@ -17,7 +18,8 @@ class QuotationController extends Controller
     public function index()
     {
         $quotations = Quotation::all();
-        return view('user.main.quotation.index', compact('quotations'));
+        $pays = Paynow::all();
+        return view('user.main.quotation.index', compact('quotations','pays'));
     }
     public function create()
     {
@@ -53,7 +55,7 @@ class QuotationController extends Controller
                 $product->product_id = $value;
                 $product->product_qty = $request->quantity[$key];
                 $product->product_price =isset($request->product_price[$key]) ? $request->product_price[$key] : 0;
-                $product->customer_id = $request->customer_id[$key];
+                $product->customer_id = $request->customer_id;
                 $product->save();
 
             }

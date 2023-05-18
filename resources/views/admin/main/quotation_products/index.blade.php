@@ -10,39 +10,75 @@
                 <table class="table table-striped table-inverse table-responsive">
                     <thead class="thead-inverse">
                         <tr>
-                            <th>Quotation ID</th>
-                            <th>Product ID</th>
-                            <th>Product Qty</th>
-                            <th>Product Price</th>
-                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Order Tax</th>
+                            <th>Discount</th>
+                            <th>Shipping</th>
+                            <th>Total Price</th>
                             <th>Status</th>
+                            <th>View</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($quotations as $quotation)
                             <tr>
-                                <td>{{ $quotation->quotation_id }}</td>
-                                <td>{{ $quotation->product_id }}</td>
-                                <td>{{ $quotation->product_qty }}</td>
-                                <td>{{ $quotation->product_price }}</td>
-                                <td>{{ $quotation->customer_id }}</td>
-                                 <td>
-                                    <td>
-                                        <select id="status" name="status" class="form-control">
-                                            <option value="1" {{ $quotation->status == 1 ? 'selected' : '' }}>Active</option>
-                                            <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}>Inactive</option>
-                                          </select>
-                                    </td>
-                                    
-                             
+                                <td>{{ $quotation->customer->name }}</td>
+                                <td>{{ $quotation->order_tax }}</td>
+                                <td>{{ $quotation->discount }}</td>
+                                <td>{{ $quotation->shipping }}</td>
+
+                                <td>{{ $quotation->total_price }}</td>
+                                <td>
+                                    <form action="{{ route('updateQouataionstatus', $quotation->id) }}" method="POST"
+                                        id="update-status-form">
+                                        @csrf
+                                        <select id="status" name="status" data-id="{{ $quotation->id }}"
+                                            class="form-control text text-primary status">
+                                            <option value="1" {{ $quotation->status == 1 ? 'selected' : '' }}
+                                                class="text text-success"> Approved</option>
+                                            <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}
+                                                class="text text-danger">Pending...</option>
+                                        </select>
+                                    </form>
+
+                                </td>
+                                <td> <a href="{{ route('view', $quotation->id) }}"> <button type="submit"
+                                            class="btn btn-secondary">
+                                            View</button></a> </td>
                                 </form>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                
+
             </div>
         </main>
 
     </div>
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.status').change(function() {
+            var status = $(this).find(":selected").val();
+            var id = $(this).attr('data-id');
+            var url = "{{ route('updateQouataionstatus', ':id') }}";
+            url = url.replace(':id', id);
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    _token: $('#update-status-form [name="_token"]').val(),
+                    status: status,
+                },
+                success: function(response) {
+                    // console.log(response);
+                   
+                },
+            });
+        });
+    });
+</script>

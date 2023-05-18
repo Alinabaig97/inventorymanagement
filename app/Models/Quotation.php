@@ -17,4 +17,11 @@ class Quotation extends Model
         'status',
         'note',
     ];
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+    
+    
+
 }
