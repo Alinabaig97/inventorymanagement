@@ -6,10 +6,12 @@
                 <h1 class="mt-4">Welcome  {{ $admin->name }}</h1>
                 <div class="card bg-info" style="width: 20%">
                     <div class="card-body">
-                      <h5 class="card-title">Total Users :</h5>
+                      <h5 class="card-title">Total Customers :</h5>
                       <p class="card-text">{{ $totalUsers }}</p>
                     </div>
+                    
                   </div>
+                  
             </div>
         </main>
      

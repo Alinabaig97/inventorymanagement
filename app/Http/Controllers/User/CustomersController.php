@@ -1,24 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\Models\Customer;
 use App\Models\OrderDetail;
 use Illuminate\Support\Facades\Auth;
-class CustomerController extends Controller
+
+class CustomersController extends Controller
 {
     public function index()
     {
-        $data = Customer::all();
-        return view('admin.main.customer.index', compact('data'));
+        $userId = Auth::id();
+        $customers = Customer::where('user_id', $userId)->get();
+        return view('user.main.customers.index', compact('customers'));
     }
     public function create()
     {
-       
-        return view('admin.main.customer.show');
+
+        return view('user.main.customers.show');
     }
     public function store(Request $request)
     {
@@ -39,14 +40,15 @@ class CustomerController extends Controller
         $customer->phone = $request->phone;
         $customer->amount = $request->amount;
         $customer->user_id = Auth::user()->id;
+
         $customer->save();
 
-        return redirect()->route('customer.index');
+        return redirect()->route('customers.index');
     }
     public function edit($id)
     {
         $customer = Customer::find($id);
-        return view('admin.main.customer.edit', compact('customer'));
+        return view('user.main.customers.edit', compact('customer'));
     }
 
 
@@ -59,7 +61,7 @@ class CustomerController extends Controller
         $customer->phone = $request['phone'];
         $customer->amount = $request['amount'];
         $customer->save();
-        return redirect()->route('customer.index');
+        return redirect()->route('customers.index');
     }
     public function destroy($id)
     {
@@ -67,22 +69,7 @@ class CustomerController extends Controller
         if (!is_null($customer)) {
             $customer->delete();
         }
-        return redirect()->route('customer.index');
+        return redirect()->route('customers.index');
     }
-    public function view($id)
-    {
-        $customer = Customer::find($id);
-
-        $details = OrderDetail::where('customers_id', $id)->get();
-        return view('admin.main.customer.CustomerView', compact('details', 'customer'));
-    }
-    public function getproduct(Request $request)
-    {
-        $customer = Customer::find($request->customer_id); 
-        return response()->json([
-            'amount' => $customer->amount,
-        ]);
-    }
-    
-
+ 
 }

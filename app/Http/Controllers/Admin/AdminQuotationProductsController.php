@@ -14,14 +14,16 @@ class AdminQuotationProductsController extends Controller
 {
     public function index()
     {
-        $quotations = Quotation::all();
+        $quotations = Quotation::all();    
         return view('admin.main.quotation_products.index', compact('quotations'));
     }
+    
 
     public function view($id)
     {
+        $customer = Customer::find($id);
         $quotations = Quotation_products::where('quotation_id', $id)->get();
-        return view('admin.main.quotation_products.view', compact('quotations'));
+        return view('admin.main.quotation_products.view', compact('quotations','customer'));
     }
 
 

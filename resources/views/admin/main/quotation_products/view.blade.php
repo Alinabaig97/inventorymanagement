@@ -10,7 +10,6 @@
                 <thead>
                     <tr>
                         <th>Customer Name:</th>
-                        <th>Customer Id:</th>
                         <th>Product Name:</th>
                         <th> Quotation ID:</th>
                         <th>Product Qty: </th>
@@ -21,7 +20,6 @@
                 <tbody>
                         <tr>
                             <td scope="row"> {!! !empty($quotation->customer) ? $quotation->customer->name : 'N/A' !!}</td>
-                            <td>{{ $quotation->customer_id }}</td>
                             <td>{{ $quotation->product->name }}</td>
                             <td>{{ $quotation->quotation_id }}</td>
                             <td>{{ $quotation->product_qty }}</td>

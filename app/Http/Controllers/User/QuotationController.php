@@ -23,7 +23,8 @@ class QuotationController extends Controller
     }
     public function create()
     {
-        $customers = Customer::all();
+        $id = Auth::user()->id;
+        $customers = Customer::where('user_id',$id)->get();
         $products = Product::all();
         return view('user.main.quotation.add', compact('customers', 'products'));
     }

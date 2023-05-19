@@ -69,7 +69,7 @@ class OrderDetailsController extends Controller
         $product = Product::find($request->product_id);
         return response()->json([
             'quantity' => $product->quantity,
-            'unit_price' => $product->unit,
+            'price' => $product->price,
         ]);
     }
 

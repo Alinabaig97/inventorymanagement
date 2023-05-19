@@ -44,20 +44,14 @@
                             <textarea name="note" class="form-control" id=""></textarea>
                         </div>
                         <div class="col-md-6">
-                            <label for="">Total Price</label>
-                            <input type="text" readonly name="total_price" class="form-control" value="" id="total-price-input">
+                            {{-- <label for="">Total Price</label> --}}
+                            <input type="hidden" readonly name="total_price" class="form-control" value="" id="total-price-input">
                         </div>
                     </div>
                     <div class="col-md-3 mt-3">
                         <button type="submit" class="btn btn-primary">Save</button>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-8">
-                            <input type="search" name="search" id="" class="form-control mt-4 search"
-                                placeholder="Serach Products Here">
-                        </div>
-                    </div>
 
 
                     <div class="d-flex justify-content-end">
@@ -76,6 +70,13 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-8">
+                            <input type="search" name="search" id="" class="form-control mt-4 search mb-5"
+                                placeholder="Serach Products Here">
                         </div>
                     </div>
                     <div class="serach_result"></div>
@@ -203,9 +204,12 @@
                 },
                 success: function(htmlresponse) {
                     var total = parseFloat(htmlresponse.total).toFixed(2);
+
                     $('#total').text(total);
                     $('#total').attr('data-price', total);
+                    $('#total-price-input').val(total);
 
+                 
                 },
             });
         });
@@ -230,6 +234,7 @@
             $('#total').text(quantity1 + price);
             $('#total-price-input').val(quantity1+price);
             $('.product-price' + id).text(total);
+            
             $('.plus' + id).val(quantity + 1);
 
 

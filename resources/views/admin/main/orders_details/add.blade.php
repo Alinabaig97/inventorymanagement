@@ -54,9 +54,8 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="inputName">UnitPrice</label>
-                                <input type="text" class="form-control" id="unit_price" name="unit_price"
-                                    placeholder="Enter name">
+                                <label for="inputName">Price</label>
+                                <input type="text" class="form-control" readonly id="price" name="price">
                             </div>
                         </div>
 
@@ -74,8 +73,8 @@
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="inputRole">Amonut</label>
-                                <input type="text" class="form-control amount" id="amount " readonly name="amount"
+                                <label for="inputRole">User Amount</label>
+                                <input type="text" class="form-control amount" readonly id="amount " readonly name="amount"
                                     placeholder="Enter Total">
 
                             </div>
@@ -119,10 +118,16 @@
                 },
                 success: function(response) {
                     $('#quantity').val(response
-                        .quantity); // update the quantity input field
-                    $('#unit_price').val(response
-                        .unit_price); // update the unit price input field 
-                    $('.sumQty').val(response.quantity);
+                    .quantity); // update the quantity input field
+                    $('#price').val(response.price); // update the unit price input field
+                    var quantity = response
+                    .quantity; // assign response quantity to variable
+                    var price = response.price; // assign response price to variable
+                    var priceVal = quantity * price;
+                    $('#price').val(priceVal); // update the calculated price input field
+                    $('#total').val(priceVal);
+                    $('.amount').val();
+
                 }
             });
         });
@@ -143,9 +148,7 @@
                     if (total != '') {
                         setTimeout(() => {
                             var amount = $('.amount').val();
-                            var sum = amount - total;
                             console.log(sum);
-                            $('.amount').val(sum);
                         }, 250);
                     }
 
@@ -156,18 +159,21 @@
         $('.discount').keyup(function() {
             var discount = $(this).val();
             var quantity = $('#quantity').val();
-            var unit_price = $('#unit_price').val();
+            var price = $('#price').val();
             var amount = $('.amount').val();
-            var total = (quantity * unit_price) - discount;
+            var total = price * (1-discount / 100);
+            console.log(amount);
             $('#total').val(total);
-            if(amount != ''){
-                var sum = amount - (quantity * unit_price) - discount ;
+            if (amount != '') {
+                var sum = amount - total;
                 $('.amount').val(sum);
             }
 
             // $('#total').val(total); // update the total input field
         });
 
+
+        
         // check if the entered quantity is greater than the current quantity
         $('.quantity').keyup(function() {
             var value = $(this).val();
@@ -179,9 +185,5 @@
 
 
         });
-     
-
-
-
     });
 </script>

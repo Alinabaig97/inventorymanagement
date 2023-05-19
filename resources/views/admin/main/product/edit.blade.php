@@ -69,7 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                {{-- <div class="row mt-3">
                     <div class="col-md-6">
                     <div class="form-group">
                         <label for="inputRole">Customer </label>
@@ -81,7 +81,7 @@
                         </select>
                     </div>
                     </div>
-                </div>
+                </div> --}}
         </div>
         <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>

@@ -31,7 +31,7 @@ class PaynowController extends Controller
 
         // return $request;
        $pay->save();
-       return redirect()->back();
+       return redirect()->route('quotation.index');
 
     }
 

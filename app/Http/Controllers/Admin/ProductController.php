@@ -54,7 +54,7 @@ class ProductController extends Controller
         $products->quantity = $request->quantity;
         $products->category_id = $request->category_id;
         $products->supplier_id = auth()->user()->id;
-        $products->customers = $request->customers;
+        // $products->customers = $request->customers;
         $products->save();
 
         return redirect()->route('product.index');
@@ -87,7 +87,7 @@ class ProductController extends Controller
         $products->quantity = $request['quantity'];
         $products->category_id = $request['category_id'];
         $products->supplier_id = auth()->user()->id;
-        $products->customers = $request->customers;
+        // $products->customers = $request->customers;
         $products->save();
          return redirect()->route('product.index');
     }

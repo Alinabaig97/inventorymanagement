@@ -10,7 +10,6 @@
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Password</th>
                         <th>Action</th>
                         <th></th>
                     </tr>
@@ -20,7 +19,6 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->password }}</td>
                             <td><a href="{{ route('user.edit', $user->id) }}"><button
                                         class="btn btn-success">Edit</button></a> </td>
                             <form action="{{ route('user.destroy', $user->id) }}" method="post"> @method('DELETE')

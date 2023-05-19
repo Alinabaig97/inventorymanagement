@@ -14,8 +14,8 @@
                         <th>Unit</th>
                         <th>Price</th>
                         <th>Quantity</th>
-                        <th>Supplier_id</th>
-                        <th>Caterogy_id</th>
+                        <th>Supplier</th>
+                        <th>Category</th>
                         <th>Action</th>
 
                     </tr>

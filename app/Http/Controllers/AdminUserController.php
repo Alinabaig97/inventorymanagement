@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminUserController extends Controller
 {
@@ -28,8 +29,9 @@ class AdminUserController extends Controller
     
     public function dashboard()
     {
-    
-        return view('user.main.dashboard');
+
+        $user = Auth::user()->name;
+        return view('user.main.dashboard',compact('user'));
     }
     
 }

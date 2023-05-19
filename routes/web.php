@@ -29,7 +29,7 @@ use App\Models\Transations;
 
 use App\Http\Controllers\User\QuotationController;
 use App\Http\Controllers\User\PaynowController;
-
+use App\Http\Controllers\User\CustomersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +42,7 @@ use App\Http\Controllers\User\PaynowController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 // Route::get('/login', [AdminController::class, 'index']);
 // Route::post('login', [AdminController::class, 'login'])->name('login');
 
@@ -58,7 +56,9 @@ Auth::routes();
 
 Route::get('/home', [AdminController::class, 'index'])->name('home');
 Route::group(['middleware' => ['auth', 'isAdmin']], function () {
-
+    Route::get('/', function () {
+        return redirect('dashboard');
+    });
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::resource('categories', CategoryController::class);
@@ -71,17 +71,19 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::resource('customer', CustomerController::class);
     Route::get('/viewData/{id}', [CustomerController::class, 'view'])->name('view');
     Route::resource('dailySales', DailySalesController::class);
-    Route::get('/filter', [DailySalesController::class, 'filter'])->name('dailySales.filter');
+    Route::get('/filter', [DailySalesController::class, 'filter'])->name('sales.filter');
     Route::resource('bills', BillsController::class);
     Route::get('/getbills', [BillsController::class, 'filter'])->name('GetBills.filter');
     Route::resource('transactionCategory', TransactionCategoryController::class);
     Route::resource('transactions', TransactionsController::class);
     Route::resource('reports', ReportController::class);
-    Route::get('/filter', [ReportController::class, 'filter'])->name('reports.filter');
+    Route::get('/reportsfilter', [ReportController::class, 'filter'])->name('reports.filter');
     Route::resource('user', UserController::class);
     Route::get('quotations',[AdminQuotationProductsController::class,'index'])->name('quotations.index');
     Route::post('/updatestatus/{id}', [AdminQuotationProductsController::class, 'statusUpdate'])->name('updateQouataionstatus');
-    Route::get('/getview/{id}',[AdminQuotationProductsController::class,'view'])->name('view');
+    Route::get('/getView/{id}',[AdminQuotationProductsController::class,'view'])->name('views');
+
+    Route::get('/getview/{id}',[CustomerController::class,'view'])->name('view');
     Route::resource('paymentsystem', paymentSystem::class);
     Route::post('/status/{id}', [paymentSystem::class, 'status'])->name('status');
     
@@ -90,11 +92,15 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
 });
 
 // Route::group(['middleware' => ['auth', 'isUser']], function () {
+    // Route::get('/', function () {
+    //     return redirect()->route('userdashboard');
+    // });
     Route::get('/userdashboard', [AdminUserController::class, 'dashboard'])->name('userdashboard');
     Route::resource('quotation',QuotationController::class);
     Route::get('search',[QuotationController::class,'search'])->name('quotation.search');
     Route::get('/products/sum', [QuotationController::class,'sum'])->name('quotation.sum');
     Route::resource('payment',PaynowController::class);
-
+    Route::resource('customers', CustomersController::class);
+   
     
 // });

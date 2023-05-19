@@ -36,12 +36,16 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
+                    <li> <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -51,67 +55,64 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link mt-4" href="{{ route('dashboard') }}">
+                        <a class="nav-link mt-4 {{ (request()->is('dashboard*')) ? 'active' : '' }}" href="{{ route('dashboard') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        {{-- <div class="sb-sidenav-menu-heading">Interface</div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Layouts
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a> --}}
-                        <a class="nav-link" href="{{ route('categories.index') }}">
+                        <a class="nav-link {{ (request()->is('categories*')) ? 'active' : '' }}" href="{{ route('categories.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
                             Category
                         </a>
-                        <a class="nav-link" href="{{ route('product.index') }}">
+                        <a class="nav-link {{ (request()->is('product*')) ? 'active' : '' }}" href="{{ route('product.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
                             Products
                         </a>
-                        <a class="nav-link" href="{{ route('orders_details.index') }}">
+                        <a class="nav-link {{ (request()->is('orders_details*')) ? 'active' : '' }}" href="{{ route('orders_details.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                            Orders Details
+                            Orders 
                         </a>
-                        <a class="nav-link" href="{{ route('customer.index') }}">
+                        <a class="nav-link {{ (request()->is('customer*')) ? 'active' : '' }}" href="{{ route('customer.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                             Customers
                         </a>
-                        <a class="nav-link" href="{{ route('dailySales.index') }}">
+                        <a class="nav-link {{ (request()->is('dailySales*')) ? 'active' : '' }}" href="{{ route('dailySales.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                             Daily Sales
                         </a>
-                        <a class="nav-link" href="{{ route('bills.index') }}">
+                        <a class="nav-link {{ (request()->is('bills*')) ? 'active' : '' }}" href="{{ route('bills.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
                             Bills
                         </a>
-                        <a class="nav-link" href="{{ route('transactionCategory.index') }}">
+                        <a class="nav-link {{ (request()->is('transactionCategory*')) ? 'active' : '' }}" href="{{ route('transactionCategory.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-folder-open"></i></div>
-                            Transation Category
+                            Transaction Category
                         </a>
-                        <a class="nav-link" href="{{ route('transactions.index') }}">
+                        <a class="nav-link {{ (request()->is('transactions*')) ? 'active' : '' }}" href="{{ route('transactions.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
-                            Transations
+                            Transactions
                         </a>
-                        <a class="nav-link" href="{{ route('reports.index') }}">
+                        <a class="nav-link {{ (request()->is('reports*')) ? 'active' : '' }}" href="{{ route('reports.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-exchange-alt"></i></div>
                             Reports
                         </a>
-                        <a class="nav-link" href="{{ route('user.index')}}" >
+                        <a class="nav-link {{ (request()->is('user*')) ? 'active' : '' }}" href="{{ route('user.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
                             Users
                         </a>
-                        <a class="nav-link" href="{{route('quotations.index')}}" >
+                        
+                        <a class="nav-link {{ (request()->is('quotations')) ? 'active' : '' }}" href="{{ route('quotations.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
                             Quotation Products
                         </a>
-                        <a class="nav-link" href="{{route('paymentsystem.index')}}" >
+                        <a class="nav-link{{ (request()->is('paymentsystem*')) ? ' active' : '' }}" href="{{ route('paymentsystem.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
-                           Payment
+                            Payment
                         </a>
                         
+
             </nav>
         </div>
+  
         @yield('content')
 
     </div>
@@ -127,13 +128,15 @@
             </div>
         </div>
     </footer>
-    <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/Chart.min.js') }}"></script>
     <script src="{{ asset('assets/assets/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('assets/assets/demo/chart-bar-demo.js') }}"></script>
     <script src="{{ asset('assets/js/simple-datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>
+
 
 </body>
 

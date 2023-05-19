@@ -6,7 +6,7 @@
                 <h1 class="fw-bold py-3 mb-4 ">TRANSACTION'S Details </h1>
             </div>
             <!-- Display the form to allow the user to input the date -->
-            <form method="GET" action="{{ route('reports.filter') }}">
+            <form method="GET" action="{{ url('reportsfilter') }}">
                 <label for="date">Filter by date:</label>
                 <input type="date" id="date" name="date">
                 <button type="submit">Filter</button>

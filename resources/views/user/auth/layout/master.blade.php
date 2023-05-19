@@ -30,18 +30,21 @@
                         class="fas fa-search"></i></button>
             </div>
         </form>
-        <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                     data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li>
-                        <hr class="dropdown-divider" />
+                    <li> <a class="dropdown-item" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                      document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                     </li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -51,24 +54,27 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                        <a class="nav-link mt-4" href="{{ route('userdashboard') }}">
+                        <a class="nav-link mt-4{{ (request()->is('userdashboard*')) ? ' active' : '' }}" href="{{ route('userdashboard') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
+                        
                         {{-- <div class="sb-sidenav-menu-heading">Interface</div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Layouts
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a> --}}
-                            <a class="nav-link" href="{{route('quotation.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
-                                Quotation
-                            </a>
-                            {{-- <a class="nav-link" href="{{route('quotationproducts.index')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-bag"></i></div>
-                                Quotation Products
-                            </a> --}}
+                        
+                        <a class="nav-link{{ (request()->is('quotation*')) ? ' active' : '' }}" href="{{ route('quotation.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-alt"></i></div>
+                            Quotation
+                        </a>
+                        
+                        <a class="nav-link {{ (request()->is('customers*')) ? 'active' : '' }}" href="{{ route('customers.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
+                            Customers 
+                        </a>
                             
                         
             </nav>
@@ -88,6 +94,8 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+
     <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/Chart.min.js') }}"></script>

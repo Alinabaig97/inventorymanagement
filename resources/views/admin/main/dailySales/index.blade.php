@@ -6,7 +6,7 @@
                 <h1 class="fw-bold py-3 mb-4 ">SALE's Details </h1>
             </div>
             <!-- Display the form to allow the user to input the date -->
-            <form method="GET" action="{{ route('dailySales.filter') }}">
+            <form method="GET" action="{{ url('/filter') }}">
                 <label for="date">Filter by date:</label>
                 <input type="date" id="date" name="date">
                 <button type="submit">Filter</button>

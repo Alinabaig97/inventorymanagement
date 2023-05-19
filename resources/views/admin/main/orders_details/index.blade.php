@@ -9,7 +9,7 @@
         <table class="table table-striped table-inverse table-responsive">
             <thead class="thead-inverse">
                 <tr>
-                    <th>Product_id</th>
+                    <th>Product Name</th>
                     <th>Order_id</th>
                     <th>Bill_number</th>
                     <th>UnitPrice</th>

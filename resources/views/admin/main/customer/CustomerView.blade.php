@@ -9,12 +9,12 @@
                 <thead class="thead-inverse">
                     <tr>
                         <th>Product Name</th>
+                        <th>Bill_number</th>
+                        <th>Order_id</th>
                         <th>UnitPrice</th>
                         <th>Quantity</th>
                         <th>Discount</th>
                         <th>Total</th>
-                        <th>Bill_number</th>
-                        <th>Order_id</th>
 
                     </tr>
                 </thead>
@@ -26,12 +26,12 @@
                     @foreach ($details as $detail)
                         <tr>
                             <td>{{ $detail->product->name }}</td>
+                            <td>{{ $detail->bill_number }}</td>
+                            <td>{{ $detail->order_id }}</td>
                             <td>{{ $detail->unit_price }}</td>
                             <td>{{ $detail->quantity }}</td>
                             <td>{{ $detail->discount }}</td>
                             <td>{{ $detail->total }}</td>
-                            <td>{{ $detail->bill_number }}</td>
-                            <td>{{ $detail->order_id }}</td>
                         </tr>
                         @php
                             $total += $detail->total;
@@ -43,7 +43,7 @@
             </table>
             <tfoot>
                 <tr>
-                    <td> <b> Total Amount: </b> Rs.{{$customer->amount - $total}}</td>
+                    <td> <b>  Amount Left: </b> Rs.{{$customer->amount - $total}}</td>
                 </tr>
             </tfoot>
         </div>

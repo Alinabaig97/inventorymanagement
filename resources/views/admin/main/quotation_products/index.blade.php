@@ -37,13 +37,15 @@
                                             class="form-control text text-primary status">
                                             <option value="1" {{ $quotation->status == 1 ? 'selected' : '' }}
                                                 class="text text-success"> Approved</option>
-                                            <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}
-                                                class="text text-danger">Pending...</option>
+                                                <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}
+                                                    class="text text-warning">Pending...</option>
+                                            <option value="2" {{ $quotation->status == 2 ? 'selected' : '' }}
+                                                class="text text-danger">Reject</option>
                                         </select>
                                     </form>
 
                                 </td>
-                                <td> <a href="{{ route('view', $quotation->id) }}"> <button type="submit"
+                                <td> <a href="{{ route('views', $quotation->id) }}"> <button type="submit"
                                             class="btn btn-secondary">
                                             View</button></a> </td>
                                 </form>

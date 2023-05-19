@@ -13,7 +13,7 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Date</th>
-                        <th>Category_id</th>
+                        <th>Category</th>
                         <th>Action</th>
                         <th></th>
                     </tr>

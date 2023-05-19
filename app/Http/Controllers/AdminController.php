@@ -26,12 +26,12 @@ class AdminController extends Controller
     {
         return view('home');
     }
-    
+
     public function dashboard()
     {
         $admin = auth()->user();
         $totalUsers = Customer::count();
-        return view('admin.main.dashboard', compact('totalUsers','admin'));
+        return view('admin.main.dashboard', compact('totalUsers', 'admin'));
     }
     
 }

@@ -20,12 +20,13 @@ class UserMiddleware
             if(Auth::user()->role_as == 2)
             {
                 return $next($request);
+                return redirect('/userdashboard');
             }
             else
             {
             // return 1;
 
-                return redirect('/userdashboard')->with('status','Access Denied! as you are not as admin');
+                return redirect('/home')->with('status','Access Denied! as you are not as admin');
             }
         }
         else

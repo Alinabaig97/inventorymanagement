@@ -34,7 +34,7 @@
                                         <option value="1" {{ $pay->status == 1 ? 'selected' : '' }}
                                             class="text text-success"> Approved</option>
                                         <option value="0" {{ $pay->status == 0 ? 'selected' : '' }}
-                                            class="text text-danger">Pending...</option>
+                                            class="text text-danger">Reject</option>
                                     </select>
                                 </form>
                             </td>
