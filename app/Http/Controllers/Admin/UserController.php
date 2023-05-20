@@ -48,7 +48,7 @@ class UserController extends Controller
             $user->name = $request->input('name');
             $user->email = $request->input('email');
             $user->password = bcrypt($request->input('password')); // Hash the password before saving
-            $user->save();
+            $user->update();
             return redirect()->route('user.index');
         }
     }

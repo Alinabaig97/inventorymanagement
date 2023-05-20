@@ -22,25 +22,24 @@ class OrderDetailsController extends Controller
     {
         $data = Product::all();
         $customers = Customer::all();
-        return view('admin.main.orders_details.add', compact('data','customers'));
+        return view('admin.main.orders_details.add', compact('data', 'customers'));
     }
     public function store(Request $request)
     {
 
         $request->validate([
-            'unit_price' => 'required|max:255',
             'discount' => 'required|max:255',
             'total' => 'required|max:255',
             'product_id' => 'required',
             'quantity' => 'required|integer',
-            'customers_id'=>'required|integer',
-            'date'=> 'required',
+            'customers_id' => 'required|integer',
+            'date' => 'required',
         ]);
 
 
         //insert Q10.uery
         $orders = new OrderDetail;
-        $orders->unit_price = $request->unit_price;
+        $orders->unit_price = $request->price;
         $orders->quantity     = $request->quantity;
         $orders->discount = $request->discount;
         $orders->total = $request->total;
@@ -97,5 +96,5 @@ class OrderDetailsController extends Controller
         $product->update();
         return response()->json(['success' => true]);
     }
-    
+   
 }

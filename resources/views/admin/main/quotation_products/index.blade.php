@@ -35,10 +35,11 @@
                                         @csrf
                                         <select id="status" name="status" data-id="{{ $quotation->id }}"
                                             class="form-control text text-primary status">
+                                            <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}
+                                                class="text text-warning" disabled>Pending...</option>
                                             <option value="1" {{ $quotation->status == 1 ? 'selected' : '' }}
                                                 class="text text-success"> Approved</option>
-                                                <option value="0" {{ $quotation->status == 0 ? 'selected' : '' }}
-                                                    class="text text-warning">Pending...</option>
+                                           
                                             <option value="2" {{ $quotation->status == 2 ? 'selected' : '' }}
                                                 class="text text-danger">Reject</option>
                                         </select>

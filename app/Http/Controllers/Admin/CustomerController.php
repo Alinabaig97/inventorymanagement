@@ -58,7 +58,7 @@ class CustomerController extends Controller
         $customer->address = $request['address'];
         $customer->phone = $request['phone'];
         $customer->amount = $request['amount'];
-        $customer->save();
+        $customer->update();
         return redirect()->route('customer.index');
     }
     public function destroy($id)

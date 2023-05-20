@@ -52,7 +52,7 @@ class CategoryController extends Controller
     {
         $customer =  Category::find($id);
         $customer->name = $request['name'];
-        $customer->save();
+        $customer->update();
          return redirect()->route('categories.index');
     }
 }

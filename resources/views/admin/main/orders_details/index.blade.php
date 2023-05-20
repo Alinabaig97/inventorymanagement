@@ -34,9 +34,9 @@
                         
                         <td>
                             @if ($detail->status == '1')
-                                <span class="text text-success"> Active </span>
+                                <span class="text text-success"> Accept </span>
                             @else
-                                <span class="text text-danger"> Inactive </span>
+                                <span class="text text-warning"> Pending.. </span>
                             @endif
                         </td>
 

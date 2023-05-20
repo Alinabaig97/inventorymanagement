@@ -46,7 +46,7 @@ class TransactionCategoryController extends Controller
         $category =  TransationCategory::find($id);
         $category->name = $request['name'];
         $category->description = $request['description'];
-        $category->save();
+        $category->update();
          return redirect()->route('transactionCategory.index');
     }
     public function destroy($id)

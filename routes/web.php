@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminQuotationProductsController;
 use App\Http\Controllers\Admin\paymentSystem;
-
+use App\Http\Controllers\admin\PosController;
 use App\Models\OrderDetail;
 use App\Models\Transations;
 /*
@@ -30,6 +30,7 @@ use App\Models\Transations;
 use App\Http\Controllers\User\QuotationController;
 use App\Http\Controllers\User\PaynowController;
 use App\Http\Controllers\User\CustomersController;
+use App\Models\ProductImage;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,8 +87,9 @@ Route::group(['middleware' => ['auth', 'isAdmin']], function () {
     Route::get('/getview/{id}',[CustomerController::class,'view'])->name('view');
     Route::resource('paymentsystem', paymentSystem::class);
     Route::post('/status/{id}', [paymentSystem::class, 'status'])->name('status');
-    
-    
+    Route::get('/delete/image', [ProductController::class, 'deleteImage'])->name('delete.image');
+    Route::resource('posDetails', PosController::class);
+
     
 });
 

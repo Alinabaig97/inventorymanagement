@@ -10,6 +10,7 @@
     <title>Dashboard - SB Admin</title>
     <link href="{{ asset('https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css') }}"
         rel="stylesheet" />
+
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet" />
     <script src="{{ asset('https://use.fontawesome.com/releases/v6.3.0/js/all.js') }}" crossorigin="anonymous"></script>
 </head>
@@ -22,6 +23,9 @@
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
+       <a href="{{ route('posDetails.index')}}"  style="margin-left: 55%"> <button class="btn btn-primary"><i class="fas fa-plus"></i> Pos</button></a>
+
+
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
                 <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
@@ -71,13 +75,14 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
                             Orders 
                         </a>
-                        <a class="nav-link {{ (request()->is('customer*')) ? 'active' : '' }}" href="{{ route('customer.index') }}">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
-                            Customers
-                        </a>
+                  
                         <a class="nav-link {{ (request()->is('dailySales*')) ? 'active' : '' }}" href="{{ route('dailySales.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
                             Daily Sales
+                        </a>
+                        <a class="nav-link {{ (request()->is('customer*')) ? 'active' : '' }}" href="{{ route('customer.index') }}">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user-friends"></i></div>
+                            Customers
                         </a>
                         <a class="nav-link {{ (request()->is('bills*')) ? 'active' : '' }}" href="{{ route('bills.index') }}">
                             <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
@@ -136,7 +141,6 @@
     <script src="{{ asset('assets/assets/demo/chart-bar-demo.js') }}"></script>
     <script src="{{ asset('assets/js/simple-datatables.min.js') }}"></script>
     <script src="{{ asset('assets/js/datatables-simple-demo.js') }}"></script>
-
 
 </body>
 

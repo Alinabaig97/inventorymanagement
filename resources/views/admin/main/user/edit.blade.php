@@ -20,7 +20,7 @@
             @endif
             <input type="text" name="name" value="{{$user->name}}" class="form-control" placeholder="Enter Your Name">
             <input type="email" name="email" value="{{$user->email}}" class="form-control mt-4" placeholder="Enter Your email">
-            <input type="password" name="password" value="{{$user->password}}" class="form-control mt-4" placeholder="Enter Your password">
+            <input type="password" name="password" value="{{$user->password}}" readonly class="form-control mt-4" placeholder="Enter Your password">
             <button type="submit" class="btn btn-primary  mt-4">Update</button>
         </form>
     </div>

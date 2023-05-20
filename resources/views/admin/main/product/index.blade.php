@@ -6,7 +6,7 @@
                 <h1 class="fw-bold py-3 mb-4 ">Products Page </h1>
                 <a href="{{ route('product.create') }}" class="btn btn-primary"><i class="bx bx-plus"></i> Add Product</a>
             </div>
-            <table class="table table-striped table-inverse table-responsive">
+            <table class="table table-striped table-inverse table-responsive mb-5 pb-5" >
                 <thead class="thead-inverse">
                     <tr>
                         <th>Name</th>
